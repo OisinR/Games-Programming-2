@@ -6,16 +6,19 @@ public class PlayerInput : MonoBehaviour
 {
     PlayerMovement playerMovementScript;
     CameraLook cameraScript;
+    Shoot shootScript;
+
     Vector2 rotation = Vector2.zero;
     float horizontal, vertical;
     public bool jump;
     public float sensitivity;
-
+    bool shoot;
 
     void Start()
     {
         playerMovementScript = GetComponent<PlayerMovement>();
         cameraScript = GetComponentInChildren<CameraLook>();
+        shootScript = GetComponent<Shoot>();
     }
 
 
@@ -32,6 +35,8 @@ public class PlayerInput : MonoBehaviour
         rotation.x += -Input.GetAxis("Mouse Y");
         cameraScript.Look(rotation);
 
+        shoot = Input.GetButtonDown("Fire1");
+        shootScript.Fire(shoot);
     }
 
 

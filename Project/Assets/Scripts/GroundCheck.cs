@@ -15,7 +15,6 @@ public class GroundCheck : MonoBehaviour
     void Update()
     {
         playerMovementScript.grounded = groundUnderneath;
-        Debug.Log(groundUnderneath);
     }
 
     private void OnTriggerStay(Collider other)
