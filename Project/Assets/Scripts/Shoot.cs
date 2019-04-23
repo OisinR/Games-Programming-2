@@ -47,7 +47,7 @@ public class Shoot : MonoBehaviour
         {
             arrowInCross.enabled = false;
             GameObject shot = Instantiate(fireArrow, crossArrow.transform.position, crossArrow.transform.rotation);
-            shot.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
+            shot.GetComponent<Rigidbody>().AddForce(-crossArrow.transform.right * speed);
             shot.GetComponent<Rigidbody>().AddForce(transform.up * 20);
             oneInChamber = false;
             ammo--;
