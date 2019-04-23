@@ -7,7 +7,7 @@ public class Shoot : MonoBehaviour
 {
 
     Animator anim;
-    public float ammo = 0;
+    float ammo = 2;
     public float speed;
     public GameObject crossArrow;
     MeshRenderer arrowInCross;

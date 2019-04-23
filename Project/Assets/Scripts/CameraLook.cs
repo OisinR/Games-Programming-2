@@ -13,6 +13,7 @@ public class CameraLook : MonoBehaviour
     {
         playerInput = GetComponentInParent<PlayerInput>();
         sensitivity = playerInput.sensitivity;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void Look(Vector2 rotation)
@@ -21,6 +22,16 @@ public class CameraLook : MonoBehaviour
         Character.transform.localRotation = Quaternion.Euler(0, rotation.y * sensitivity, 0);
         Camera.main.transform.parent.localRotation = Quaternion.Euler(rotation.x * sensitivity, 0, 0);
 
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        
     }
 
 }
