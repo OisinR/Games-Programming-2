@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
         agent = GetComponentInChildren<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         m_CurrentWaypoint = 0;
-
+        
         HandleAnimation();
     }
 
@@ -37,11 +37,11 @@ public class Enemy : MonoBehaviour
         {
             case NPCState.CHASE:
                 Chase();
-                Debug.Log("c");
+                //Debug.Log("c");
                 break;
             case NPCState.PATROL:
                 Patrol();
-                Debug.Log("p");
+                //Debug.Log("p");
                 break;
             default:
                 break;
@@ -77,6 +77,7 @@ public class Enemy : MonoBehaviour
 
     void Chase()
     {
+        agent.speed = 4.5f;
         agent.SetDestination(player.transform.position);
     }
 
@@ -115,7 +116,7 @@ public class Enemy : MonoBehaviour
     void Patrol()
     {
         //Debug.Log("Patrolling");
-
+        agent.speed = 3.5f;
         CheckWaypointDistance();
         agent.SetDestination(m_Waypoints[m_CurrentWaypoint].position);
     }
@@ -137,7 +138,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log("Player");
+            //Debug.Log("Player");
             m_IsPlayerNear = true;
 
         }

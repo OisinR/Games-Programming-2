@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 674ab5dd154a61243b576ba4e2e76b4c
+guid: 6649369dcf77ce34d9d8fc36bc8bad13
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -79,7 +79,7 @@ ModelImporter:
     400070: Mutant_Spine
     400072: Mutant_Spine1
     400074: Mutant_Spine2
-    7400000: Swipe
+    7400000: Idle
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -110,17 +110,17 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Swipe
+      name: Idle
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 80
+      lastFrame: 426
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -132,23 +132,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.41114983
-        functionName: CanKill
-        data: 
-        objectReferenceParameter: {fileID: 6591812777167688005, guid: c6b4ba00ae31b3243b21dffab7c3a6fd,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.5792683
-        functionName: CantKill
-        data: 
-        objectReferenceParameter: {fileID: 6591812777167688005, guid: c6b4ba00ae31b3243b21dffab7c3a6fd,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

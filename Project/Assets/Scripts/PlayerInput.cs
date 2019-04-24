@@ -31,12 +31,15 @@ public class PlayerInput : MonoBehaviour
         jump = Input.GetButtonDown("Jump");
         playerMovementScript.PlayerControls(horizontal, vertical, jump);
 
+        shoot = Input.GetButtonDown("Fire1");
+        shootScript.Fire(shoot);
+    }
+
+    private void LateUpdate()
+    {
         rotation.y += Input.GetAxis("Mouse X");
         rotation.x += -Input.GetAxis("Mouse Y");
         cameraScript.Look(rotation);
-
-        shoot = Input.GetButtonDown("Fire1");
-        shootScript.Fire(shoot);
     }
 
 
