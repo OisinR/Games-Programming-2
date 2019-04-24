@@ -23,15 +23,4 @@ public class CameraLook : MonoBehaviour
         Camera.main.transform.parent.localRotation = Quaternion.Euler(rotation.x * sensitivity, 0, 0);
 
     }
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-        
-    }
-
 }

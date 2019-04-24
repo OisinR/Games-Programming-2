@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Death : MonoBehaviour
 {
-
+    public AudioClip deathSound;
+    AudioSource speaker;
     Rigidbody rb;
     Collider col;
     MeshRenderer[] rend;
@@ -12,8 +13,10 @@ public class Death : MonoBehaviour
     NavMeshAgent agent;
     public GameObject particles;
     Animator anim;
+    public Collider hitCol;
 	void Awake()
     {
+        speaker = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         enemyScript = GetComponent<Enemy>();
@@ -24,7 +27,10 @@ public class Death : MonoBehaviour
 
     public void Die()
     {
+        speaker.volume = PlayerPrefs.GetFloat("MonsterVolume");
+        speaker.PlayOneShot(deathSound);
         anim.SetTrigger("Death");
+        hitCol.enabled = false;
         Destroy(agent);
         Destroy(enemyScript);
         Destroy(rb);

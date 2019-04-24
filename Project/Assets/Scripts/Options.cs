@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Options : MonoBehaviour
 {
-
+    public AudioSource speaker;
     public Slider music;
     public Slider effects;
     public Slider monsters;
@@ -26,12 +26,28 @@ public class Options : MonoBehaviour
     {
         if (menu)
         {
+            Time.timeScale = 0;
             cover.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
         }
         else
         {
+            Time.timeScale = 1;
             cover.SetActive(false);
+            if(SceneManager.GetActiveScene().name != "MainMenu")
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
+        if (SceneManager.GetActiveScene().name != "MainMenu" && !menu)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                EnterMenu();
+            }
+        }
+
+        speaker.volume = PlayerPrefs.GetFloat("MusicVolume");
     }
 
 

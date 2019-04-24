@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position += transform.forward * verticalMovement * speed * Time.deltaTime;
         transform.position += transform.right * horizontalMovement * speed * Time.deltaTime;
-        if(verticalMovement + horizontalMovement < -0.1f || verticalMovement + horizontalMovement > 0.1f)
+        if(verticalMovement < -0.1f || verticalMovement > 0.1f || horizontalMovement < -0.1f || horizontalMovement > 0.1f)
         {
             anim.SetBool("Walking", true);
         }

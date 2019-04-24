@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class Shoot : MonoBehaviour
 {
-
+    AudioSource speaker;
+    public AudioClip shootSound;
+    public AudioClip reloadSound;
     Animator anim;
     float ammo = 2;
     public float speed;
@@ -17,6 +19,7 @@ public class Shoot : MonoBehaviour
     bool reloading;
     private void Start()
     {
+        speaker = GetComponent<AudioSource>();
         ammoCount = GameObject.FindGameObjectWithTag("AmmoText").GetComponent<Text>();
         anim = GetComponent<Animator>();
         arrowInCross = crossArrow.GetComponent<MeshRenderer>();
@@ -41,10 +44,19 @@ public class Shoot : MonoBehaviour
         ammoCount.text = "1/" + (ammo - 1);
     }
 
+    public void ReloadSound()
+    {
+        speaker.volume = PlayerPrefs.GetFloat("EffectsVolume");
+        speaker.PlayOneShot(reloadSound);
+
+    }
+
     public void Fire(bool shoot)
     {
-        if (shoot && oneInChamber)
+        if (shoot && oneInChamber && Time.timeScale !=0)
         {
+            speaker.volume = PlayerPrefs.GetFloat("EffectsVolume");
+            speaker.PlayOneShot(shootSound);
             arrowInCross.enabled = false;
             GameObject shot = Instantiate(fireArrow, crossArrow.transform.position, crossArrow.transform.rotation);
             shot.GetComponent<Rigidbody>().AddForce(-crossArrow.transform.right * speed);

@@ -12,14 +12,14 @@ public class Enemy : MonoBehaviour
     private bool m_IsPlayerNear;
     private Animator anim;
 
-    [SerializeField] float m_FieldOfView;
-    [SerializeField] float m_ThresholdDistance;
+    float m_FieldOfView = 240;
+    float m_ThresholdDistance = 4;
     [SerializeField] private Transform[] m_Waypoints;
-    [SerializeField] GameObject player;
+    GameObject player;
 
     void Start()
     {
-
+        player = GameObject.FindGameObjectWithTag("Player");
         state = NPCState.PATROL;
         agent = GetComponentInChildren<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
@@ -65,7 +65,7 @@ public class Enemy : MonoBehaviour
             HandleAnimation();
         }
 
-        if (state == NPCState.CHASE && m_IsPlayerNear && CheckFieldOfView() && CheckOclusion() && Vector3.Distance(player.transform.position, transform.position) < 3f)
+        if (state == NPCState.CHASE && m_IsPlayerNear && CheckFieldOfView() && CheckOclusion() && Vector3.Distance(player.transform.position, transform.position) < 2f)
         {
 
             Attack();
@@ -78,7 +78,18 @@ public class Enemy : MonoBehaviour
     void Chase()
     {
         agent.speed = 4.5f;
+        
         agent.SetDestination(player.transform.position);
+
+        if(Vector3.Distance(player.transform.position, transform.position) < 2f)
+        {
+            agent.updateRotation = false;
+            transform.LookAt(player.transform);
+        }
+        else
+        {
+            agent.updateRotation = true;
+        }
     }
 
     bool CheckFieldOfView()
@@ -150,23 +161,6 @@ public class Enemy : MonoBehaviour
         {
             m_IsPlayerNear = false; ;
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, 5.0f);
-
-        Gizmos.color = Color.red;
-        Vector3 direction = player.transform.position - transform.position;
-        Gizmos.DrawRay(transform.position, direction);
-
-        Vector3 rightDirection = Quaternion.AngleAxis(m_FieldOfView / 2, Vector3.up) * transform.forward;
-        Vector3 leftDirection = Quaternion.AngleAxis(-m_FieldOfView / 2, Vector3.up) * transform.forward;
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, rightDirection * 5.0f);
-        Gizmos.DrawRay(transform.position, leftDirection * 5.0f);
     }
 
     void HandleAnimation()
