@@ -24,19 +24,22 @@ public class PlayerInput : MonoBehaviour
 
 
 
-	void Update()
+    void Update()
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
         jump = Input.GetButtonDown("Jump");
-        playerMovementScript.PlayerControls(horizontal,vertical, jump);
-
-        rotation.y += Input.GetAxis("Mouse X");
-        rotation.x += -Input.GetAxis("Mouse Y");
-        cameraScript.Look(rotation);
+        playerMovementScript.PlayerControls(horizontal, vertical, jump);
 
         shoot = Input.GetButtonDown("Fire1");
         shootScript.Fire(shoot);
+    }
+
+    private void LateUpdate()
+    {
+        rotation.y += Input.GetAxis("Mouse X");
+        rotation.x += -Input.GetAxis("Mouse Y");
+        cameraScript.Look(rotation);
     }
 
 

@@ -6,10 +6,12 @@ public class GroundCheck : MonoBehaviour
 {
     bool groundUnderneath;
     PlayerMovement playerMovementScript;
+    Animator anim;
 
     private void Start()
     {
         playerMovementScript = GetComponentInParent<PlayerMovement>();
+        anim = GetComponentInParent<Animator>();
     }
 
     void Update()
@@ -21,6 +23,7 @@ public class GroundCheck : MonoBehaviour
     {
         if(other.gameObject.layer == 9)
         {
+            anim.SetBool("Grounded", true);
             groundUnderneath = true;
         }
     }
@@ -29,6 +32,7 @@ public class GroundCheck : MonoBehaviour
     {
         if(other.gameObject.layer == 9)
         {
+            anim.SetBool("Grounded", false);
             groundUnderneath = false;
         }
     }

@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 1327938609057585691}
   - component: {fileID: 2771606572068150672}
   - component: {fileID: 4985279919184941370}
+  - component: {fileID: 8504845713307313746}
+  - component: {fileID: 4218873650800624846}
   m_Layer: 0
   m_Name: Arrow_Small
-  m_TagString: Untagged
+  m_TagString: Arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,10 +104,37 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6354783720097467174}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 537e4925e43e01542bf8cda32a90a989, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.09
   m_Height: 0.9389645
+  m_Direction: 0
+  m_Center: {x: -0.52, y: 0, z: 0.01}
+--- !u!114 &8504845713307313746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6354783720097467174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c65a8e6c3dead740be5361c8c4dc9b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canKill: 0
+--- !u!136 &4218873650800624846
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6354783720097467174}
+  m_Material: {fileID: 13400000, guid: 537e4925e43e01542bf8cda32a90a989, type: 2}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.21
+  m_Height: 1.46
   m_Direction: 0
   m_Center: {x: -0.52, y: 0, z: 0.01}

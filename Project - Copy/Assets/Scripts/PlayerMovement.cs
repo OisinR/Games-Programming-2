@@ -4,25 +4,37 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    Animator anim;
     float horizontalMovement, verticalMovement;
-    float speed = 10;
+    float speed = 5;
     bool jumping;
     public bool grounded;
     Rigidbody rb;
+    public bool dead;
 
     void Start()
     {
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
 
     void FixedUpdate()
     {
-        Vector3 movement = new Vector3(horizontalMovement, 0, verticalMovement);
-        transform.Translate(movement * speed * Time.deltaTime);
+        if (dead) { return; }
 
-        if(jumping && grounded)
+        transform.position += transform.forward * verticalMovement * speed * Time.deltaTime;
+        transform.position += transform.right * horizontalMovement * speed * Time.deltaTime;
+        if(verticalMovement < -0.1f || verticalMovement > 0.1f || horizontalMovement < -0.1f || horizontalMovement > 0.1f)
+        {
+            anim.SetBool("Walking", true);
+        }
+        else
+        {
+            anim.SetBool("Walking", false);
+        }
+        
+        if (jumping && grounded)
         {
             rb.AddForce( new Vector3(0, 4000, 0));
         }
