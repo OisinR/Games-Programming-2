@@ -17,13 +17,14 @@ public class Shoot : MonoBehaviour
     Text ammoCount;
     public bool oneInChamber = true;
     bool reloading;
+    public bool dead;
     private void Start()
     {
         speaker = GetComponent<AudioSource>();
         ammoCount = GameObject.FindGameObjectWithTag("AmmoText").GetComponent<Text>();
         anim = GetComponent<Animator>();
         arrowInCross = crossArrow.GetComponent<MeshRenderer>();
-        ammoCount.text = "1/" + (ammo - 1);
+        ammoCount.text = "Bolts: 1/" + (ammo - 1);
     }
 
 
@@ -41,7 +42,7 @@ public class Shoot : MonoBehaviour
         arrowInCross.enabled = true;
         oneInChamber = true;
         reloading = false;
-        ammoCount.text = "1/" + (ammo - 1);
+        ammoCount.text = "Bolts: 1/" + (ammo - 1);
     }
 
     public void ReloadSound()
@@ -53,7 +54,7 @@ public class Shoot : MonoBehaviour
 
     public void Fire(bool shoot)
     {
-        if (shoot && oneInChamber && Time.timeScale !=0)
+        if (shoot && oneInChamber && Time.timeScale !=0 && !dead)
         {
             speaker.volume = PlayerPrefs.GetFloat("EffectsVolume");
             speaker.PlayOneShot(shootSound);
@@ -63,7 +64,7 @@ public class Shoot : MonoBehaviour
             shot.GetComponent<Rigidbody>().AddForce(transform.up * 20);
             oneInChamber = false;
             ammo--;
-            ammoCount.text = "0/" + ammo;
+            ammoCount.text = "Bolts: 0/" + ammo;
         }
 
     }
@@ -77,11 +78,11 @@ public class Shoot : MonoBehaviour
             ammo++;
             if(oneInChamber)
             {
-                ammoCount.text = "1/" + (ammo - 1);
+                ammoCount.text = "Bolts: 1/" + (ammo - 1);
             }
             else
             {
-                ammoCount.text = "0/" + ammo;
+                ammoCount.text = "Bolts: 0/" + ammo;
             }
             Destroy(collision.gameObject);
         }

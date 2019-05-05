@@ -7,11 +7,15 @@ public class EnemyAttack : MonoBehaviour
     public Collider col;
     bool triggerEnabled = false;
     public AttackCollisions colScript;
+    public AudioSource speaker;
+    public AudioClip swipe;
 
-	public void CanKill()
+    public void CanKill()
     {
         col.enabled = true;
         colScript.triggerEnabled = true;
+        speaker.volume = PlayerPrefs.GetFloat("MonsterVolume");
+        speaker.PlayOneShot(swipe);
     }
 
 

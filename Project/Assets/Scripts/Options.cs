@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Options : MonoBehaviour
 {
+    CameraLook cameraScript;
     public AudioSource speaker;
     public Slider music;
     public Slider effects;
@@ -13,6 +14,11 @@ public class Options : MonoBehaviour
     public Button back;
     public GameObject cover;
     bool menu;
+    public bool dead;
+    private void Start()
+    {
+        
+    }
 
     public void EnterMenu()
     {
@@ -26,7 +32,7 @@ public class Options : MonoBehaviour
     {
         if (menu)
         {
-            Time.timeScale = 0;
+            if (SceneManager.GetActiveScene().name != "MainMenu") { Time.timeScale = 0; }
             cover.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
         }
@@ -34,7 +40,7 @@ public class Options : MonoBehaviour
         {
             Time.timeScale = 1;
             cover.SetActive(false);
-            if(SceneManager.GetActiveScene().name != "MainMenu")
+            if(SceneManager.GetActiveScene().name != "MainMenu" && !dead)
             {
                 Cursor.lockState = CursorLockMode.Locked;
             }
@@ -44,6 +50,8 @@ public class Options : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 EnterMenu();
+                cameraScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraLook>();
+                cameraScript.paused = true;
             }
         }
 
@@ -58,7 +66,27 @@ public class Options : MonoBehaviour
         PlayerPrefs.SetFloat("EffectsVolume", effects.value);
         PlayerPrefs.SetFloat("MonsterVolume", monsters.value);
         menu = false;
+
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+          
+            cameraScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraLook>();
+            cameraScript.paused = false;
+            
+        }
     }
+
+
+    public void Menu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(1);
+    }
+
 
     public void Quit()
     {

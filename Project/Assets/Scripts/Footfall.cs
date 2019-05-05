@@ -31,7 +31,14 @@ public class Footfall : MonoBehaviour
 
     private void PlaySound(Direction footDirection)
     {
-        speaker.volume = PlayerPrefs.GetFloat("EffectsVolume");
+        if (gameObject.layer == 11)
+        {
+            speaker.volume = PlayerPrefs.GetFloat("EffectsVolume");
+        }
+        else
+        {
+            speaker.volume = PlayerPrefs.GetFloat("MonsterVolume");
+        }
         if (speaker != null)
         {
             if (footDirection == Direction.left)

@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Arrow
   - AmmoText
+  - Manager
+  - DeathText
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -11,11 +11,13 @@ public class Enemy : MonoBehaviour
     private int m_CurrentWaypoint;
     private bool m_IsPlayerNear;
     private Animator anim;
-
+    bool played;
     float m_FieldOfView = 240;
     float m_ThresholdDistance = 4;
     [SerializeField] private Transform[] m_Waypoints;
     GameObject player;
+    AudioSource speaker;
+    public AudioClip getAttention;
 
     void Start()
     {
@@ -24,7 +26,7 @@ public class Enemy : MonoBehaviour
         agent = GetComponentInChildren<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         m_CurrentWaypoint = 0;
-        
+        speaker = GetComponent<AudioSource>();
         HandleAnimation();
     }
 
@@ -78,7 +80,12 @@ public class Enemy : MonoBehaviour
     void Chase()
     {
         agent.speed = 4.5f;
-        
+        if (!played)
+        {
+            speaker.volume = PlayerPrefs.GetFloat("MonsterVolume");
+            speaker.PlayOneShot(getAttention);
+            played = true;
+        }
         agent.SetDestination(player.transform.position);
 
         if(Vector3.Distance(player.transform.position, transform.position) < 2f)

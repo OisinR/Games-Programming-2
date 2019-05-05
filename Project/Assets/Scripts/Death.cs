@@ -27,9 +27,10 @@ public class Death : MonoBehaviour
 
     public void Die()
     {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<WinScript>().enemies--;
         speaker.volume = PlayerPrefs.GetFloat("MonsterVolume");
         speaker.PlayOneShot(deathSound);
-        anim.SetTrigger("Death");
+        anim.SetBool("Death",true);
         hitCol.enabled = false;
         Destroy(agent);
         Destroy(enemyScript);

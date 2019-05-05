@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     bool jumping;
     public bool grounded;
     Rigidbody rb;
+    public bool dead;
 
     void Start()
     {
@@ -20,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (dead) { return; }
+
         transform.position += transform.forward * verticalMovement * speed * Time.deltaTime;
         transform.position += transform.right * horizontalMovement * speed * Time.deltaTime;
         if(verticalMovement < -0.1f || verticalMovement > 0.1f || horizontalMovement < -0.1f || horizontalMovement > 0.1f)
