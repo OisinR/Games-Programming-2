@@ -22,7 +22,7 @@ public class Timer : MonoBehaviour
 
 	void Update()
     {
-        if (!gameOver && !gameWon)
+        if (!gameOver && !gameWon)                                      //if the game isnt over, keep adding to the time
         {
             timer += Time.deltaTime;
             timerText.text = "Time: " + timer.ToString("0.00");
@@ -31,7 +31,7 @@ public class Timer : MonoBehaviour
         if(gameWon)
         {
             float score = PlayerPrefs.GetFloat("Score");
-            if (timer < score)
+            if (timer < score)                                          //if the game is won and new time is better than old time, replace old time
             {
                 PlayerPrefs.SetFloat("Score", timer);
             }

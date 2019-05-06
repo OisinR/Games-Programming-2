@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Shoot : MonoBehaviour
 {
+
     AudioSource speaker;
     public AudioClip shootSound;
     public AudioClip reloadSound;
@@ -12,19 +13,22 @@ public class Shoot : MonoBehaviour
     float ammo = 2;
     public float speed;
     public GameObject crossArrow;
-    MeshRenderer arrowInCross;
-    public GameObject fireArrow;
+    MeshRenderer arrowInCross;                       //the arrow thats attached to the crossbow
+    public GameObject fireArrow;                    //the arrow that fires
     Text ammoCount;
-    public bool oneInChamber = true;
-    bool reloading;
-    public bool dead;
+    public bool oneInChamber = true;                //if theres an arrow loaded and ready to fire
+    bool reloading;                                 //if reloading then cant fire
+    public bool dead;                               //if dead then cant fire
+
+
+
     private void Start()
     {
         speaker = GetComponent<AudioSource>();
         ammoCount = GameObject.FindGameObjectWithTag("AmmoText").GetComponent<Text>();
         anim = GetComponent<Animator>();
         arrowInCross = crossArrow.GetComponent<MeshRenderer>();
-        ammoCount.text = "Bolts: 1/" + (ammo - 1);
+        ammoCount.text = "Bolts: 1/" + (ammo - 1);              //tell UI how many bolts you have
     }
 
 
@@ -59,7 +63,7 @@ public class Shoot : MonoBehaviour
             speaker.volume = PlayerPrefs.GetFloat("EffectsVolume");
             speaker.PlayOneShot(shootSound);
             arrowInCross.enabled = false;
-            GameObject shot = Instantiate(fireArrow, crossArrow.transform.position, crossArrow.transform.rotation);
+            GameObject shot = Instantiate(fireArrow, crossArrow.transform.position, crossArrow.transform.rotation);         //Instantiate arrow and propell it forward
             shot.GetComponent<Rigidbody>().AddForce(-crossArrow.transform.right * speed);
             shot.GetComponent<Rigidbody>().AddForce(transform.up * 20);
             oneInChamber = false;
@@ -71,7 +75,7 @@ public class Shoot : MonoBehaviour
 
 
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider collision)                         //if walk over an arrow, pick it up and add it to ammo count
     {
         if(collision.gameObject.tag == "Arrow" && collision.gameObject.GetComponent<ArrowKill>().canKill != true)
         {

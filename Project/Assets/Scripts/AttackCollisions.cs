@@ -5,8 +5,7 @@ using UnityEngine;
 public class AttackCollisions : MonoBehaviour
 {
 
-    public bool triggerEnabled;
-
+    public bool triggerEnabled;                                             //accessed from enem attack script
 
 
 
@@ -15,7 +14,7 @@ public class AttackCollisions : MonoBehaviour
         
         if (other.gameObject.layer == 11)
         {
-            if (triggerEnabled)
+            if (triggerEnabled)                                             //if hit the player and can kill, try to kill               
             {
                 try
                 {

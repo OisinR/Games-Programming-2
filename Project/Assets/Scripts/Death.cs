@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Death : MonoBehaviour
 {
+    //Enemy Death
     public AudioClip deathSound;
     AudioSource speaker;
     Rigidbody rb;
@@ -14,6 +15,7 @@ public class Death : MonoBehaviour
     public GameObject particles;
     Animator anim;
     public Collider hitCol;
+
 	void Awake()
     {
         speaker = GetComponent<AudioSource>();
@@ -27,16 +29,16 @@ public class Death : MonoBehaviour
 
     public void Die()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<WinScript>().enemies--;
-        speaker.volume = PlayerPrefs.GetFloat("MonsterVolume");
-        speaker.PlayOneShot(deathSound);
-        anim.SetBool("Death",true);
-        hitCol.enabled = false;
-        Destroy(agent);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<WinScript>().enemies--;         //tell the WinScript that theres one less enemy in the scene
+        speaker.volume = PlayerPrefs.GetFloat("MonsterVolume");     
+        speaker.PlayOneShot(deathSound);                                                        //Play death sound
+        anim.SetBool("Death",true);                                                             //Play death animation
+        hitCol.enabled = false;                                                                 //disbale collider
+        Destroy(agent);                                                                         //get rid of the navmesh agent, rigidbody and the enemy script
         Destroy(enemyScript);
         Destroy(rb);
         col.enabled = false;
-        Instantiate(particles, transform.position, Quaternion.identity);
+        Instantiate(particles, transform.position, Quaternion.identity);                        //Instantiate in some blood
 
     }
 

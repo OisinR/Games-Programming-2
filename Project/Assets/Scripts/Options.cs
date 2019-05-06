@@ -15,10 +15,6 @@ public class Options : MonoBehaviour
     public GameObject cover;
     bool menu;
     public bool dead;
-    private void Start()
-    {
-        
-    }
 
     public void EnterMenu()
     {
@@ -32,7 +28,7 @@ public class Options : MonoBehaviour
     {
         if (menu)
         {
-            if (SceneManager.GetActiveScene().name != "MainMenu") { Time.timeScale = 0; }
+            if (SceneManager.GetActiveScene().name != "MainMenu") { Time.timeScale = 0; }               //if not in the main menu, pause the scene
             cover.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
         }
@@ -62,7 +58,7 @@ public class Options : MonoBehaviour
     public void ExitMenu()
     {
 
-        PlayerPrefs.SetFloat("MusicVolume", music.value);
+        PlayerPrefs.SetFloat("MusicVolume", music.value);                                                   //when exiting menu, set all volumes to what the sliders are set to
         PlayerPrefs.SetFloat("EffectsVolume", effects.value);
         PlayerPrefs.SetFloat("MonsterVolume", monsters.value);
         menu = false;
@@ -79,22 +75,22 @@ public class Options : MonoBehaviour
 
     public void Menu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0);                                                  //go back to main menu
     }
 
-    public void Restart()
+    public void Restart()                                                           //restart level
     {
         SceneManager.LoadScene(1);
     }
 
 
-    public void Quit()
+    public void Quit()                                                              //quit game
     {
         Application.Quit();
     }
 
-    public void Play()
-    {
+    public void Play()                                                              //play the game
+    {       
         SceneManager.LoadScene(1);
     }
 }

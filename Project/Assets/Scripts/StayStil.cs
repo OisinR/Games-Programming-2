@@ -5,15 +5,7 @@ using UnityEngine;
 public class StayStil : MonoBehaviour
 {
 
-   
-	void Start()
-    {
-        
-    }
-
-
-
-
+    //makes sure it doesnt wander off during animations
 	void Update()
     {
         transform.position = gameObject.transform.parent.position;

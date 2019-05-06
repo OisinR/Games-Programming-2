@@ -5,23 +5,23 @@ using UnityEngine;
 public class Footfall : MonoBehaviour
 {
     public AudioClip footstep;
-
     private enum Direction { right, left };
-
     private Animator anim;
-
     public AudioSource speaker;
+
+
+
 
     public void MakeFootprint(int scale)
     { 
 
         Direction footDirection;
 
-        if (scale > 0) // left foot
+        if (scale > 0) 
         {
             footDirection = Direction.left;
         }
-        else // right foot
+        else 
         {
             footDirection = Direction.right;
         }
@@ -43,7 +43,7 @@ public class Footfall : MonoBehaviour
         {
             if (footDirection == Direction.left)
             {
-                speaker.panStereo = -0.5f;
+                speaker.panStereo = -0.5f;                                          //sets footprint sounds to sound a little different on each step
                 speaker.pitch = Random.Range(1.0f, 1.5f);
             }
 

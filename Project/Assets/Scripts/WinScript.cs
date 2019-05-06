@@ -5,14 +5,21 @@ using UnityEngine.UI;
 
 public class WinScript : MonoBehaviour
 {
+    //set up variables
+
+        //references to other scripts
     public CameraLook cameraScript;
     PlayerMovement moveScript;
     Animator anim;
     Timer scoreScript;
     Options optionsScript;
     Shoot shootScript;
+
+        //Canvas groups to allow the end screens to fade in via alpha channel
     public CanvasGroup fadeWin, winTextCanvas;
     public GameObject winText;
+
+        
     bool dead;
     public int enemies;
 
@@ -24,16 +31,16 @@ public class WinScript : MonoBehaviour
         shootScript = GetComponent<Shoot>();
         anim = GetComponent<Animator>();
         moveScript = GetComponent<PlayerMovement>();
-        fadeWin.alpha = 0;
+        fadeWin.alpha = 0;                                                                          //set everything to off/transparent at the start
         winTextCanvas.alpha = 0;
         winText.SetActive(false);
         AudioListener.volume = 1;
-        enemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        enemies = GameObject.FindGameObjectsWithTag("Enemy").Length;                                //find the number of enemies in the scene
     }
 
     private void Update()
     {
-        if(enemies <= 0)
+        if(enemies <= 0)                                                                            //if there are no more enemies, win the game
         {
             Win();
             
@@ -41,13 +48,9 @@ public class WinScript : MonoBehaviour
     }
 
 
-
-
-
-
     private void FixedUpdate()
     {
-        if (dead)
+        if (dead)                                                                                   //use dead to kill all movement and controls when game over
         {
             fadeWin.alpha += 0.01f;
             winText.SetActive(true);
@@ -69,7 +72,7 @@ public class WinScript : MonoBehaviour
         }
     }
 
-    public void Win()
+    public void Win()                                                                               //tell all scripts the game is over
     {
         dead = true;
         scoreScript.gameWon = true;

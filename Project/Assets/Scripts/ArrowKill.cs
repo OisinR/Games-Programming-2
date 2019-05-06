@@ -12,17 +12,9 @@ public class ArrowKill : MonoBehaviour
     }
 
 
-
-
-	void Update()
-    {
-        
-    }
-
-
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == 10)
+        if(collision.gameObject.layer == 10)                                    //If it hits an enemy, try to kill them
         {
             if(canKill)
             {
@@ -36,7 +28,7 @@ public class ArrowKill : MonoBehaviour
                 }
             }
         }
-        if(collision.gameObject.layer == 9)
+        if(collision.gameObject.layer == 9)                                     //if the arrow hits the environment it cant kill anymore, preventing monsters dying by walking on it
         {
             canKill = false;
         }

@@ -23,7 +23,7 @@ public class PlayerInput : MonoBehaviour
 
 
 
-
+    //Gets Input from the player and throws it to the relevent scripts
     void Update()
     {
         horizontal = Input.GetAxis("Horizontal");

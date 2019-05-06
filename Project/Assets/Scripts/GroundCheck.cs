@@ -16,7 +16,7 @@ public class GroundCheck : MonoBehaviour
 
     void Update()
     {
-        playerMovementScript.grounded = groundUnderneath;
+        playerMovementScript.grounded = groundUnderneath;           //if next to the ground, tell the Movement script it can jump
     }
 
     private void OnTriggerStay(Collider other)

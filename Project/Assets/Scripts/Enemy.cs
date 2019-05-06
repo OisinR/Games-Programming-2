@@ -5,16 +5,16 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    private enum NPCState { CHASE, PATROL };
-    private NPCState state;
+    private enum EnemyState { CHASE, PATROL };
+    private EnemyState state;
     private NavMeshAgent agent;
-    private int m_CurrentWaypoint;
-    private bool m_IsPlayerNear;
+    private int currentWaypoint;
+    private bool playerNearMe;
     private Animator anim;
     bool played;
-    float m_FieldOfView = 240;
-    float m_ThresholdDistance = 4;
-    [SerializeField] private Transform[] m_Waypoints;
+    float fieldOfView = 240;
+    float threshold = 4;
+    public Transform[] waypoints;
     GameObject player;
     AudioSource speaker;
     public AudioClip getAttention;
@@ -22,10 +22,10 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        state = NPCState.PATROL;
+        state = EnemyState.PATROL;
         agent = GetComponentInChildren<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
-        m_CurrentWaypoint = 0;
+        currentWaypoint = 0;
         speaker = GetComponent<AudioSource>();
         HandleAnimation();
     }
@@ -37,13 +37,11 @@ public class Enemy : MonoBehaviour
 
         switch (state)
         {
-            case NPCState.CHASE:
+            case EnemyState.CHASE:
                 Chase();
-                //Debug.Log("c");
                 break;
-            case NPCState.PATROL:
+            case EnemyState.PATROL:
                 Patrol();
-                //Debug.Log("p");
                 break;
             default:
                 break;
@@ -54,25 +52,24 @@ public class Enemy : MonoBehaviour
 
     void CheckPlayer()
     {
-        if (state == NPCState.PATROL && m_IsPlayerNear && CheckFieldOfView() && CheckOclusion())
+        if (state == EnemyState.PATROL && playerNearMe && CheckFieldOfView() && CheckOclusion())            //if can see player and they're close then chase them
         {
-            state = NPCState.CHASE;
+            state = EnemyState.CHASE;
             HandleAnimation();
             return;
         }
 
-        if (state == NPCState.CHASE && !CheckOclusion())
+        if (state == EnemyState.CHASE && !CheckOclusion())                                                  
         {
-            state = NPCState.PATROL;
+            state = EnemyState.PATROL;
             HandleAnimation();
         }
 
-        if (state == NPCState.CHASE && m_IsPlayerNear && CheckFieldOfView() && CheckOclusion() && Vector3.Distance(player.transform.position, transform.position) < 2f)
+        if (state == EnemyState.CHASE && playerNearMe && CheckFieldOfView() && CheckOclusion() && Vector3.Distance(player.transform.position, transform.position) < 2f) //if close and chasing, attack the player
         {
 
             Attack();
             GetComponent<Rigidbody>().velocity = Vector3.zero;
-            //state = NPCState.PATROL;
             return;
         }
     }
@@ -99,7 +96,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    bool CheckFieldOfView()
+    bool CheckFieldOfView()                                                                                     //is the player in the feild of view 
     {
         Vector3 direction = player.transform.position - this.transform.position;
         Vector3 angle = (Quaternion.FromToRotation(transform.forward, direction)).eulerAngles;
@@ -109,7 +106,7 @@ public class Enemy : MonoBehaviour
         else if (angle.y < -180.0f) angle.y = angle.y + 360.0f;
 
 
-        if (angle.y < m_FieldOfView / 2)
+        if (angle.y < fieldOfView / 2)
         {
             return true;
         }
@@ -117,7 +114,7 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
-    bool CheckOclusion()
+    bool CheckOclusion()                                                                                //is the player hidden
     {
         RaycastHit hit;
         Vector3 direction = player.transform.position - transform.position;
@@ -133,10 +130,9 @@ public class Enemy : MonoBehaviour
 
     void Patrol()
     {
-        //Debug.Log("Patrolling");
         agent.speed = 3.5f;
         CheckWaypointDistance();
-        agent.SetDestination(m_Waypoints[m_CurrentWaypoint].position);
+        agent.SetDestination(waypoints[currentWaypoint].position);
     }
 
     void Attack()
@@ -146,9 +142,9 @@ public class Enemy : MonoBehaviour
 
     void CheckWaypointDistance()
     {
-        if (Vector3.Distance(m_Waypoints[m_CurrentWaypoint].position, this.transform.position) < m_ThresholdDistance)
+        if (Vector3.Distance(waypoints[currentWaypoint].position, this.transform.position) < threshold)
         {
-            m_CurrentWaypoint = (m_CurrentWaypoint + 1) % m_Waypoints.Length;
+            currentWaypoint = (currentWaypoint + 1) % waypoints.Length;
         }
     }
 
@@ -156,8 +152,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            //Debug.Log("Player");
-            m_IsPlayerNear = true;
+            playerNearMe = true;
 
         }
     }
@@ -166,14 +161,14 @@ public class Enemy : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            m_IsPlayerNear = false; ;
+            playerNearMe = false; ;
         }
     }
 
     void HandleAnimation()
     {
 
-        if (state == NPCState.CHASE)
+        if (state == EnemyState.CHASE)
         {
             anim.SetBool("Running", true);
         }

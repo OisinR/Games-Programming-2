@@ -21,11 +21,11 @@ public class CameraLook : MonoBehaviour
     {
         if(paused)
         {
-            return;
+            return;                 //dont allow movement if paused
         }
         rotation.x = Mathf.Clamp(rotation.x, -15f, 15f);
-        Character.transform.localRotation = Quaternion.Euler(0, rotation.y * sensitivity, 0);
-        Camera.main.transform.parent.localRotation = Quaternion.Euler(rotation.x * sensitivity, 0, 0);
+        Character.transform.localRotation = Quaternion.Euler(0, rotation.y * sensitivity, 0);           //look up and down
+        Camera.main.transform.parent.localRotation = Quaternion.Euler(rotation.x * sensitivity, 0, 0);  //rotate body, not just head
 
     }
 }

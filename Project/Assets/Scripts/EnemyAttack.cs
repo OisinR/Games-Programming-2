@@ -5,11 +5,13 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     public Collider col;
-    bool triggerEnabled = false;
     public AttackCollisions colScript;
     public AudioSource speaker;
     public AudioClip swipe;
 
+
+
+    //these two functions are called via animation event
     public void CanKill()
     {
         col.enabled = true;

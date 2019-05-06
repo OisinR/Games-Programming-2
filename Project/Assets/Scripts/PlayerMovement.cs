@@ -21,13 +21,13 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (dead) { return; }
+        if (dead) { return; }           //dont allow movement when dead
 
-        transform.position += transform.forward * verticalMovement * speed * Time.deltaTime;
+        transform.position += transform.forward * verticalMovement * speed * Time.deltaTime;            //moves the player around
         transform.position += transform.right * horizontalMovement * speed * Time.deltaTime;
         if(verticalMovement < -0.1f || verticalMovement > 0.1f || horizontalMovement < -0.1f || horizontalMovement > 0.1f)
         {
-            anim.SetBool("Walking", true);
+            anim.SetBool("Walking", true);      //if the player is moving, play walk animation, if not then play idle
         }
         else
         {
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public void PlayerControls(float horizontal,float vertical, bool jump)
+    public void PlayerControls(float horizontal,float vertical, bool jump)          //gets input from PlayerInput
     {
         horizontalMovement = horizontal;
         verticalMovement = vertical;
